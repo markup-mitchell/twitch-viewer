@@ -1,5 +1,7 @@
 
 let data = {
+  accounts: [x, y, z],
+  
   // accounts - array?
   // view filter status
 }
