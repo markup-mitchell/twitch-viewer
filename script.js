@@ -1,6 +1,27 @@
 
 let data = {
-  // accounts: [x, y, z],
+  accounts: [
+    {
+      userName: 'player x', 
+      avatar: './avatarx.jpg',
+      status: 'online',
+      playing: 'game x'
+    },
+    {
+      userName: 'player y', 
+      avatar: './avatary.jpg',
+      status: 'online',
+      playing: 'game y'
+    },
+    {
+      userName: 'player z', 
+      avatar: './avatarz.jpg',
+      status: 'offline',
+      playing: 'game z'
+    },
+  ],
+
+  currentFilter: 'online',
   
   // accounts - array?
   // view filter status

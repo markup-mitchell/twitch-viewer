@@ -25,14 +25,37 @@ h1 {
   display: flex;
   flex-direction: column;
   background: pink;
+  align-items: center;
+
 }
 
 #filterBox {
   display: flex;
-  background: red;
+}
+
+.userBox {
+  display: flex;
+  width: 55vw;
+  justify-content: space-between;
+  background: purple;
+}
+
+.avatar {
+  border-radius: 50%;
+  background-color: red;
+  width: 100px;
+  height: 100px;
 
 }
 
-svg {
-  color: #4b367c;
+.userText {
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+}
+
+.statusIcon {
+  width: 100px;
+  height: 100px;
+  background-color: green;
 }
