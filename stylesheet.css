@@ -51,10 +51,17 @@ h1 {
 
 .userText {
   width: 250px; /* stretch? */
+  display: flex;
+  flex-direction: column;
   height: 100px;
   background-color: yellow;
 }
-
+.userName {
+  background: blue;  
+}
+.playing {
+  background: peachpuff;
+}
 .statusIcon {
   width: 100px;
   height: 100px;
