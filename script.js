@@ -45,7 +45,7 @@ let view = {
     let userHTML = _.template(
       '<div class="userBox">' +
         '<img class="avatar" />' +
-        '<div class="userText"><%= userName %></div>' +
+        '<div class="userText"><%= userName %><br><%= playing %></div>' +
         '<img class="statusIcon" />' +
       '</div>'
     );
@@ -55,8 +55,6 @@ let view = {
   for (i=0; i < data.accounts.length ; i++) {
   toAppendString += userHTML(data.accounts[i]);
 }
-  console.log(toAppendString);
-
   document.getElementById('container').insertAdjacentHTML('beforeend', toAppendString);
   }
 }
