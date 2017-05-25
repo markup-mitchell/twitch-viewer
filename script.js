@@ -2,19 +2,21 @@ let data = {
   accounts: [
     {
       userName: 'player x', 
-      avatar: './avatarx.jpg',
+      avatar: ' http://www.iconninja.com/files/746/262/492/invader-space-invaders-space-invaders-game-icon.png',
       status: 'online',
       playing: 'game x'
     },
     {
       userName: 'player y', 
-      avatar: './avatary.jpg',
+      avatar: 'http://www.iconninja.com/files/610/604/984/invader-space-invaders-space-invaders-game-icon.png',
+
+
       status: 'online',
       playing: 'game y'
     },
     {
       userName: 'player z', 
-      avatar: './avatarz.jpg',
+      avatar: 'http://www.iconninja.com/files/610/604/984/invader-space-invaders-space-invaders-game-icon.png',
       status: 'offline',
       playing: 'game z'
     },
@@ -44,8 +46,9 @@ let view = {
   // render function can be called with different arrays for filtering
   render() {
     let userHTML = _.template(
+      // Concatenated for legibility
       '<div class="userBox">' 
-        +'<img class="avatar" />'
+        +'<img class="" src="<%=avatar%>" />'
         +'<div class="userText">'
         +'<div class="userName"><%= userName %></div>'
         +'<div class="playing"><%= playing %></div>'
