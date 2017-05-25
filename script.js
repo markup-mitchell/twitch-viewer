@@ -1,4 +1,3 @@
-
 let data = {
   accounts: [
     {
@@ -42,6 +41,25 @@ let controller = {
 
 let view = {
   // render function can be called with different arrays for filtering
+  render() {
+    let userHTML = _.template(
+      '<div class="userBox">' +
+        '<img class="avatar" />' +
+        '<div class="userText"><%= userName %></div>' +
+        '<img class="statusIcon" />' +
+      '</div>'
+    );
+
+  let toAppendString = '';
+
+  for (i=0; i < data.accounts.length ; i++) {
+  toAppendString += userHTML(data.accounts[i]);
+}
+  console.log(toAppendString);
+
+  document.getElementById('container').insertAdjacentHTML('beforeend', toAppendString);
+  }
 }
 
 // controller.init();
+

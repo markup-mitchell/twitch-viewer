@@ -38,6 +38,7 @@ h1 {
   width: 55vw;
   justify-content: space-between;
   background: purple;
+  padding: 10px;
 }
 
 .avatar {
@@ -49,7 +50,7 @@ h1 {
 }
 
 .userText {
-  width: 100px;
+  width: 250px; /* stretch? */
   height: 100px;
   background-color: yellow;
 }
