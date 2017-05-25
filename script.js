@@ -1,22 +1,20 @@
 let data = {
   accounts: [
     {
-      userName: 'player x', 
+      userName: 'Feminist Frequency', 
       avatar: ' http://www.iconninja.com/files/746/262/492/invader-space-invaders-space-invaders-game-icon.png',
       status: 'online',
       playing: 'game x'
     },
     {
-      userName: 'player y', 
+      userName: 'Lootbndt', 
       avatar: 'http://www.iconninja.com/files/610/604/984/invader-space-invaders-space-invaders-game-icon.png',
-
-
       status: 'online',
       playing: 'game y'
     },
     {
-      userName: 'player z', 
-      avatar: 'http://www.iconninja.com/files/610/604/984/invader-space-invaders-space-invaders-game-icon.png',
+      userName: ' z', 
+      avatar : 'http://www.iconninja.com/files/427/364/992/game-invader-space-invaders-space-invaders-icon.png',
       status: 'offline',
       playing: 'game z'
     },

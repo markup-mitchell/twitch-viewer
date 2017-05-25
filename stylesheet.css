@@ -19,12 +19,12 @@ h1 {
   margin-right: auto;
   background: #fff;
   height: 100vh;
+  /*border-radius: 22px;*/
 }
 
 #container {
   display: flex;
   flex-direction: column;
-  background: pink;
   align-items: center;
 
 }
@@ -33,29 +33,43 @@ h1 {
   display: flex;
 }
 
+.filter {
+  width: 20vw;
+  border: none;
+  /*margin: 2px;*/
+  height: 30px;
+  background-color: #4b367c;
+  color: #fff;
+}
+
 .userBox {
   display: flex;
+  border: solid #4b367c;
+  border-radius: 12px;
   width: 55vw;
   justify-content: space-between;
-  background: #fff;
-  padding: 10px;
+  align-items: center;
+  /*background: #ff0;*/
+  padding: 15px;
+  margin-top: 15px;
 }
 
 .avatar {
   border-radius: 50%;
   width: 100px;
   height: 100px;
-
 }
 
+img {
+  border-radius: 50%;
+}
 .userText {
-  width: 250px; /* stretch? */
+  width: 25vw;; /* stretch? */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   height: 100px;
-  background-color: yellow;
 }
 .userName {
   /*background: blue;  */
