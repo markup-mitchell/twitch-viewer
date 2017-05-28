@@ -1,4 +1,6 @@
 let data = {
+  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'],
+
   accounts: [
     {
       userName: 'Feminist Frequency', 
@@ -27,12 +29,28 @@ let data = {
 }
 
 let controller = {
+
   init() {
+    this.getAllUserData(data.userNameList);
     view.render();
-    this.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/streams/freecodecamp').then(function(response) {
+    this.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/streams/medrybw').then(function(response) {
       console.log(JSON.parse(response));
   });
-  },
+},
+  getAllUserData(array) {
+    array.forEach(function(user) {
+      controller.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/users/' + user).then(function(response) {
+		    // localStorage.setItem(user, response)
+        let obj = JSON.parse(response);
+        console.log(obj);
+        data.accounts.userName = obj.display_name;
+        data.accounts.avatar = obj.logo;
+        data.accounts.status = 'offline';
+        data.accounts.playing = 'placeholder';
+      });
+    }
+  )
+},
   appRefresh(){
     // checks data.viewFilters and updates data and view with changes
     // run with controller init and periodically (1 min?) to check for changes 
