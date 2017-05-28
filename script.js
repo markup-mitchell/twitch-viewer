@@ -29,7 +29,9 @@ let data = {
 let controller = {
   init() {
     view.render();
-    this.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/streams/freecodecamp?callback=?');
+    this.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/streams/freecodecamp').then(function(response) {
+      console.log(JSON.parse(response));
+  });
   },
   appRefresh(){
     // checks data.viewFilters and updates data and view with changes
