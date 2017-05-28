@@ -1,24 +1,15 @@
 let data = {
-  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'],
-
-  accounts: [],
-
+  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'], // -> controller.getAllUserData
+  accounts: [], // <- controller.getAllUserData
   currentFilter: 'online',
-  
-  // accounts - array?
-  // view filter status
 }
 
-let controller = {
-
+let controller = { // add 'loading' while initial data collection occurs?
   init() {
     this.getAllUserData(data.userNameList);
-    view.render();
-    this.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/streams/medrybw').then(function(response) {
-      console.log(JSON.parse(response));
-  });
+    view.render(); // need to make this wait until previous call completes
 },
-  getAllUserData(array) {
+  getAllUserData(array) { // only runs on load and page refresh - use local storage?
     array.forEach(function(user) {
       controller.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/users/' + user).then(function(response) {
 		    // localStorage.setItem(user, response)
@@ -42,7 +33,7 @@ let controller = {
               // console.log(xhr.response);
                 resolve(xhr.response);
             }
-            else {
+            else { // I need better error handling!
                 reject(console.log(xhr.status));
             };
         }
