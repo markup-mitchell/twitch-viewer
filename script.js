@@ -1,26 +1,7 @@
 let data = {
   userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'],
 
-  accounts: [
-    {
-      userName: 'Feminist Frequency', 
-      avatar: ' http://www.iconninja.com/files/746/262/492/invader-space-invaders-space-invaders-game-icon.png',
-      status: 'online',
-      playing: 'game x'
-    },
-    {
-      userName: 'Lootbndt', 
-      avatar: 'http://www.iconninja.com/files/610/604/984/invader-space-invaders-space-invaders-game-icon.png',
-      status: 'online',
-      playing: 'game y'
-    },
-    {
-      userName: ' z', 
-      avatar : 'http://www.iconninja.com/files/427/364/992/game-invader-space-invaders-space-invaders-icon.png',
-      status: 'offline',
-      playing: 'game z'
-    },
-  ],
+  accounts: [],
 
   currentFilter: 'online',
   
@@ -42,11 +23,7 @@ let controller = {
       controller.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/users/' + user).then(function(response) {
 		    // localStorage.setItem(user, response)
         let obj = JSON.parse(response);
-        console.log(obj);
-        data.accounts.userName = obj.display_name;
-        data.accounts.avatar = obj.logo;
-        data.accounts.status = 'offline';
-        data.accounts.playing = 'placeholder';
+        data.accounts.push(obj);
       });
     }
   )
@@ -81,10 +58,10 @@ let view = {
     let userHTML = _.template(
       // Concatenated for legibility
       '<div class="userBox">' 
-        +'<img class="" src="<%=avatar%>" />'
+        +'<img class="" src="<%=logo%>" />'
         +'<div class="userText">'
-        +'<div class="userName"><%= userName %></div>'
-        +'<div class="playing"><%= playing %></div>'
+        +'<div class="userName"><%=display_name%></div>'
+        +'<div class="playing"><%=bio%></div>'
         +'</div><img class="statusIcon" />'
       +'</div>');
 
