@@ -56,12 +56,12 @@ h1 {
 
 .avatar {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
 }
 
 img {
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
 }
 .userText {
   width: 25vw;; /* stretch? */

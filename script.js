@@ -26,7 +26,7 @@ let controller = {
         data.accounts.push(obj);
       });
     }
-  )
+  );
 },
   appRefresh(){
     // checks data.viewFilters and updates data and view with changes
