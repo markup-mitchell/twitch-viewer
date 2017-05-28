@@ -29,13 +29,28 @@ let data = {
 let controller = {
   init() {
     view.render();
+    this.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/streams/freecodecamp?callback=?');
   },
   appRefresh(){
     // checks data.viewFilters and updates data and view with changes
     // run with controller init and periodically (1 min?) to check for changes 
   },
-  submitQuery(apiQuery) {
-    // queries the API 
+  submitQuery(apiQuery) { 
+    return new Promise(function(resolve,reject) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', apiQuery);
+        xhr.send(null);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+              // console.log(xhr.response);
+                resolve(xhr.response);
+            }
+            else {
+                reject(console.log(xhr.status));
+            };
+        }
+      xhr.send
+    })
   },
   
 }
