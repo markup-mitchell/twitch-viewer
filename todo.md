@@ -4,9 +4,7 @@ to do
 
 - font(s)
 - clickbutton filters
-- display components
--  
-
+- placeholder components for non-existent accounts
 
 
 
@@ -16,3 +14,7 @@ to do
 
 
 done
+
+- display components
+- clear display function
+- render calls clear beforehand  
