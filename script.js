@@ -1,14 +1,14 @@
 let data = {
   userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'], // -> controller.getUserData
   accounts: [], // <- controller.getUserData
-  currentFilter: 'all',
+  currentFilter: 'offline',
 }
 
 let controller = { // add 'loading' while initial data collection occurs?
   init() {
     this.getUserData(data.userNameList, 'streams');
     this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
-    view.render(); // need to make this wait until previous call completes
+    view.render(data.accounts); // need to make this wait until previous call completes
 },
   getUserData(array, query) { // only runs on load and page refresh - use local storage?
     array.forEach(function(user) {
@@ -59,12 +59,10 @@ let controller = { // add 'loading' while initial data collection occurs?
   }
 }
 
-
-
-
 let view = {
   // render function can be called with different arrays for filtering
-  render(array) {
+  render(userArray) {
+
     let userHTML = _.template(
       // Concatenated for legibility
       '<div class="userBox">' 
@@ -77,10 +75,8 @@ let view = {
 
   let toAppendString = '';
 
-  // change from the whole object to a subset provided by a map/filter function from controller
-
-  for (i=0; i < data.accounts.length ; i++) {
-  toAppendString += userHTML(data.accounts[i]);
+  for (i=0; i < userArray.length ; i++) {
+  toAppendString += userHTML(userArray[i]);
 }
   document.getElementById('container').insertAdjacentHTML('beforeend', toAppendString);
   }
