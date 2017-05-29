@@ -1,36 +1,39 @@
 let data = {
-  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'], // -> controller.getAllUserData
-  accounts: [], // <- controller.getAllUserData
+  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'], // -> controller.getUserData
+  accounts: [], // <- controller.getUserData
   currentFilter: 'online',
 }
 
 let controller = { // add 'loading' while initial data collection occurs?
   init() {
-    this.getAllUserData(data.userNameList);
+    this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
+    this.getUserData(data.userNameList, 'streams');
+    // this.getUserStreams(data.userNameList, 'streams');
     view.render(); // need to make this wait until previous call completes
 },
-  getAllUserData(array) { // only runs on load and page refresh - use local storage?
+  getUserData(array, query) { // only runs on load and page refresh - use local storage?
     array.forEach(function(user) {
-      controller.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/users/' + user).then(function(response) {
-		    // localStorage.setItem(user, response)
+      controller.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/' + query + "/" + user).then(function(response) {
         let obj = JSON.parse(response);
+        if (query === 'streams') {
+          console.log(obj);
+          data[user] = obj.stream ? obj.stream.game : 'offline';
+        }
+        else {
         data.accounts.push(obj);
+        };
       });
     }
   );
 },
-  appRefresh(){
-    // checks data.viewFilters and updates data and view with changes
-    // run with controller init and periodically (1 min?) to check for changes 
-  },
-  submitQuery(apiQuery) { 
+
+  submitQuery(apiQuery) { // for all api calls. adapt apiQuery with an intermediary function 
     return new Promise(function(resolve,reject) {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', apiQuery);
         xhr.send(null);
         xhr.onload = function() {
             if (xhr.status === 200) {
-              // console.log(xhr.response);
                 resolve(xhr.response);
             }
             else { // I need better error handling!
