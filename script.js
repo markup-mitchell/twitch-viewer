@@ -8,7 +8,8 @@ let controller = { // add 'loading' while initial data collection occurs?
   init() {
     this.getUserData(data.userNameList, 'streams');
     this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
-    view.render(data.accounts); // need to make this wait until previous call completes
+    view.init();
+    // view.render(data.accounts); // need to make this wait until previous call completes
 },
   getUserData(array, query) { // only runs on load and page refresh - use local storage?
     array.forEach(function(user) {
@@ -56,30 +57,45 @@ let controller = { // add 'loading' while initial data collection occurs?
     else {
       return data.accounts;
     }
+  },
+
+  applyFilter(filter) {
+    data.currentFilter = filter;
+    view.render();
   }
 }
 
 let view = {
+  init() {
+    this.display = document.getElementById('container');
+    this.render(data.accounts);
+  },
   // render function can be called with different arrays for filtering
   render(userArray) {
-
     let userHTML = _.template(
       // Concatenated for legibility
       '<div class="userBox">' 
         +'<img class="" src="<%=logo%>" />'
         +'<div class="userText">'
         +'<div class="userName"><%=display_name%></div>'
-        +'<div class="playing"><%=bio%></div>'
+        +'<div class="playing"><%=data[name]%></div>'
         +'</div><img class="statusIcon" />'
       +'</div>');
+    let toAppendString = '';
+    view.clear();
+    for (i=0; i < userArray.length ; i++) {
+      toAppendString += userHTML(userArray[i]);
+    }
+    this.display.insertAdjacentHTML('beforeend', toAppendString);
+  },
 
-  let toAppendString = '';
+  clear() {
+    while (this.display.firstChild){
+      this.display.removeChild(this.display.firstChild);
+    }
 
-  for (i=0; i < userArray.length ; i++) {
-  toAppendString += userHTML(userArray[i]);
-}
-  document.getElementById('container').insertAdjacentHTML('beforeend', toAppendString);
   }
+
 }
 
 controller.init();
