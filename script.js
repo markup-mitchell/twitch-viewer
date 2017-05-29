@@ -1,5 +1,5 @@
 let data = {
-  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', 'madeUP'], // -> controller.getUserData
+  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', ], // -> controller.getUserData
   accounts: [], // <- controller.getUserData
   currentFilter: 'offline',
 }
@@ -76,7 +76,7 @@ let view = {
     let userHTML = _.template(
       // Concatenated for legibility
       '<div class="userBox">' 
-        +'<img class="" src="<%=logo%>" />'
+        +'<img class="avatar" src="<%=logo%>" />'
         +'<div class="userText">'
         +'<div class="userName"><%=display_name%></div>'
         +'<div class="playing"><%=data[name]%></div>'

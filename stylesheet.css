@@ -56,13 +56,15 @@ h1 {
 
 .avatar {
   border-radius: 50%;
-}
-
-img {
-  border-radius: 50%;
   width: 100px;
   height: 100px;
 }
+
+/*img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}*/
 .userText {
   width: 25vw;; /* stretch? */
   display: flex;
@@ -82,7 +84,9 @@ img {
 
 }
 .statusIcon {
-  width: 100px;
-  height: 100px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   background-color: green;
+  padding: 10px;
 }
