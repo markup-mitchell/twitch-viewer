@@ -10,9 +10,9 @@
   <div id="app">
     <h1>twitch.tv viewer</h1>
       <div id="filterBox">
-        <button class="filter" id="online">online</button>
-        <button class="filter" id="offline">offline</button>
-        <button class="filter" id="all">all</button>
+        <button class="filter" id="online" onclick="controller.applyFilter(this)">online</button>
+        <button class="filter" id="offline" onclick="controller.applyFilter(this)">offline</button>
+        <button class="filter" id="all" onclick="controller.applyFilter(this)">all</button>
       </div>
     <div id="container">
     </div>

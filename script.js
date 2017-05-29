@@ -1,5 +1,5 @@
 let data = {
-  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp'], // -> controller.getUserData
+  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', 'madeUP'], // -> controller.getUserData
   accounts: [], // <- controller.getUserData
   currentFilter: 'offline',
 }
@@ -59,9 +59,10 @@ let controller = { // add 'loading' while initial data collection occurs?
     }
   },
 
-  applyFilter(filter) {
+  applyFilter(element) {
+    let filter = element.id;
     data.currentFilter = filter;
-    view.render();
+    view.render(this.filterUsers());
   }
 }
 
@@ -79,7 +80,7 @@ let view = {
         +'<div class="userText">'
         +'<div class="userName"><%=display_name%></div>'
         +'<div class="playing"><%=data[name]%></div>'
-        +'</div><img class="statusIcon" />'
+        +'</div><img class="statusIcon" src="<%=data[name]%>.png" />'
       +'</div>');
     let toAppendString = '';
     view.clear();
