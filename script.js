@@ -1,7 +1,8 @@
 let data = {
   userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', ], // -> controller.getUserData
-  accounts: [], // <- controller.getUserData
-  currentFilter: 'offline',
+  accounts: {}, // <- controller.getUserData
+  currentFilter: 'all',
+
 }
 
 let controller = { // add 'loading' while initial data collection occurs?
@@ -17,10 +18,10 @@ let controller = { // add 'loading' while initial data collection occurs?
         let obj = JSON.parse(response);
         if (query === 'streams') { // this feels hacky. should be currying, probably
           console.log(obj);
-          data[user].stream = obj;
+          data.accounts[user].stream = obj; // appends stream obj to user obj
         }
         else {
-        data[user] = obj;
+        data.accounts[user] = obj; // creates or overwrites user obj.
         };
       });
     }
@@ -43,19 +44,19 @@ let controller = { // add 'loading' while initial data collection occurs?
     })
   },
 
-  filterUsers() { // this is truly horrible
-    if (data.currentFilter === 'offline') {
-      return data.accounts.filter(function(user) {
-        return data[user.name] === data.currentFilter;
-      });
-    }
-    else if (data.currentFilter === 'online') {
-      return data.accounts.filter(function(user) {
-        return data[user.name] !== 'offline';
-      })
+  filterUsers() { 
+    let all = Object.keys(data.accounts);
+    if (data.currentFilter === 'all') {
+      return all; // bypass any further processing
     }
     else {
-      return data.accounts;
+      return data.currentFilter === 'online'
+        ?
+        all.filter(function(userName) {
+          return (data.accounts[userName].stream.stream); })
+        :
+        all.filter(function(userName) {
+          return (!data.accounts[userName].stream.stream); })
     }
   },
 
