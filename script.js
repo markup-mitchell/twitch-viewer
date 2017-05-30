@@ -56,7 +56,7 @@ let controller = { // add 'loading' while initial data collection occurs?
     }
     else if (data.currentFilter === 'online'){
       all.forEach(function(userName) {
-        debugger;
+        // debugger;
         if (data.accounts[userName].stream.stream) {
           results.push(data.accounts[userName])
         }
