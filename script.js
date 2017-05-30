@@ -6,8 +6,8 @@ let data = {
 
 let controller = { // add 'loading' while initial data collection occurs?
   init() {
-    this.getUserData(data.userNameList, 'streams');
     this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
+    this.getUserData(data.userNameList, 'streams');
     view.init();
     // view.render(data.accounts); // need to make this wait until previous call completes
 },
@@ -17,10 +17,10 @@ let controller = { // add 'loading' while initial data collection occurs?
         let obj = JSON.parse(response);
         if (query === 'streams') { // this feels hacky. should be currying, probably
           console.log(obj);
-          data[user] = obj.stream ? obj.stream.game : 'offline';
+          data[user].stream = obj;
         }
         else {
-        data.accounts.push(obj);
+        data[user] = obj;
         };
       });
     }
