@@ -46,17 +46,32 @@ let controller = { // add 'loading' while initial data collection occurs?
 
   filterUsers() { 
     let all = Object.keys(data.accounts);
+    let results = [];
+
     if (data.currentFilter === 'all') {
-      return all; // bypass any further processing
+      all.forEach(function(userName) {
+        results.push(data.accounts[userName])
+      })
+      console.log(results);
     }
-    else { // there's a more elegant way, but I haven't time to find it
-      return data.currentFilter === 'online' ?
-        all.filter(function(userName) {
-          return (data.accounts[userName].stream.stream); })
-        :
-        all.filter(function(userName) {
-          return (!data.accounts[userName].stream.stream); })
+    else if (data.currentFilter === 'online'){
+      all.forEach(function(userName) {
+        debugger;
+        if (data.accounts[userName].stream.stream) {
+          results.push(data.accounts[userName])
+        }
+      })
+      console.log(results);
     }
+    else {
+      all.forEach(function(userName) {
+        if (!data.accounts[userName].stream.stream) {
+          results.push(data.accounts[userName])
+        }
+      })
+      console.log(results);
+    }
+    return results;
   },
 
   applyFilter(element) {
@@ -69,14 +84,13 @@ let controller = { // add 'loading' while initial data collection occurs?
 let view = {
   init() {
     this.display = document.getElementById('container');
-    this.render(data.accounts);
+    // this.render(data.accounts);
   },
   // render function can be called with different arrays for filtering
-  render(userArray) {
-    let userHTML = _.template(
-      // Concatenated for legibility
+  render(userArray) { // array of OBJECTS
+    let userHTML = _.template( // Concatenated for legibility
       '<div class="userBox">' 
-        +'<img class="avatar" src="<%=logo%>" />'
+        +'<img class="avatar" src="<%=  logo%>" />'
         +'<div class="userText">'
         +'<div class="userName"><%=display_name%></div>'
         +'<div class="playing"><%=data[name]%></div>'
