@@ -49,9 +49,8 @@ let controller = { // add 'loading' while initial data collection occurs?
     if (data.currentFilter === 'all') {
       return all; // bypass any further processing
     }
-    else {
-      return data.currentFilter === 'online'
-        ?
+    else { // there's a more elegant way, but I haven't time to find it
+      return data.currentFilter === 'online' ?
         all.filter(function(userName) {
           return (data.accounts[userName].stream.stream); })
         :
