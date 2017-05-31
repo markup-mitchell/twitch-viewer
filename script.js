@@ -1,31 +1,56 @@
 let data = {
   userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', ], // -> controller.getUserData
-  accounts: [], // <- controller.getUserData
+  accounts: [
+    
+  ], // <- controller.getUserData
   currentFilter: 'offline',
 }
 
 let controller = { // add 'loading' while initial data collection occurs?
   init() {
-    this.getUserData(data.userNameList, 'streams');
-    this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
-    view.init();
+    this.createUserObj();
+    // this.getUserData(data.userNameList, 'streams');
+    // this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
+    // view.init();
     // view.render(data.accounts); // need to make this wait until previous call completes
 },
-  getUserData(array, query) { // only runs on load and page refresh - use local storage?
-    array.forEach(function(user) {
-      controller.submitQuery('https://cors-anywhere.herokuapp.com/wind-bow.gomix.me/twitch-api/' + query + "/" + user).then(function(response) {
-        let obj = JSON.parse(response);
-        if (query === 'streams') { // this feels hacky. should be currying, probably
-          console.log(obj);
-          data[user] = obj.stream ? obj.stream.game : 'offline';
-        }
-        else {
-        data.accounts.push(obj);
+  createUserObj() { 
+      const proxy = 'https://cors-anywhere.herokuapp.com';
+      const base = '/wind-bow.gomix.me/twitch-api/';
+      data.userNameList.forEach(function(user) {
+        let userData = {
+          name: user,
+          display_name: null,
+          logo: 'no-photo.png',
+          streaming: false,
+          game: null,
+          streamImage: null, 
         };
-      });
-    }
-  );
+        controller.submitQuery(proxy + base + 'users/' + user).then(function(response) {
+          let apiData = JSON.parse(response);
+          userData.display_name = apiData.display_name;
+          userData.logo = apiData.logo;
+        });
+
+        // I should abstract this into a separate refresh function so it can be called independently
+        controller.submitQuery(proxy + base + 'streams/' + user).then(function(response) {
+          let streamData = JSON.parse(response);
+          console.log(streamData.stream);
+          if (!streamData.stream) {
+            userData.streaming = false;
+            userData.game = 'Not currently streaming';
+            userData.streamImage = 'offline.png';
+          }
+          else {
+            userData.streaming = true;
+            userData.game = streamData.stream.game;
+            userData.streamImage = streamData.stream.preview.medium;
+          }
+          data.accounts.push(userData);
+        })
+    })
 },
+
   submitQuery(apiQuery) { // for all api calls. adapt apiQuery with an intermediary function 
     return new Promise(function(resolve,reject) {
         let xhr = new XMLHttpRequest();
@@ -76,11 +101,11 @@ let view = {
     let userHTML = _.template(
       // Concatenated for legibility
       '<div class="userBox">' 
-        +'<img class="avatar" src="<%=logo%>" />'
+        +'<img class="avatar" src="<%= logo %>" />'
         +'<div class="userText">'
-        +'<div class="userName"><%=display_name%></div>'
-        +'<div class="playing"><%=data[name]%></div>'
-        +'</div><img class="statusIcon" src="<%=data[name]%>.png" />'
+        +'<div class="userName"><%= display_name %></div>'
+        +'<div class="playing"><%= game %></div>'
+        +'</div><img class="statusIcon" src="<%= streamImage %>" />'
       +'</div>');
     let toAppendString = '';
     view.clear();
