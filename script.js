@@ -11,7 +11,7 @@ let controller = { // add 'loading' while initial data collection occurs?
     this.createUserObj();
     // this.getUserData(data.userNameList, 'streams');
     // this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
-    // view.init();
+    view.init();
     // view.render(data.accounts); // need to make this wait until previous call completes
 },
   createUserObj() { 
@@ -26,14 +26,12 @@ let controller = { // add 'loading' while initial data collection occurs?
           game: null,
           streamImage: null, 
         };
-
         // need to handle null responses from users query
         controller.submitQuery(proxy + base + 'users/' + user).then(function(response) {
           let apiData = JSON.parse(response);
           userData.display_name = apiData.display_name;
           userData.logo = apiData.logo;
         });
-
         // I should abstract this into a separate refresh function so it can be called independently
         controller.submitQuery(proxy + base + 'streams/' + user).then(function(response) {
           let streamData = JSON.parse(response);
