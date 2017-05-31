@@ -1,5 +1,5 @@
 let data = {
-  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', ], // -> controller.getUserData
+  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', 'madeUp' ], // -> controller.getUserData
   accounts: [
     
   ], // <- controller.getUserData
@@ -26,6 +26,8 @@ let controller = { // add 'loading' while initial data collection occurs?
           game: null,
           streamImage: null, 
         };
+
+        // need to handle null responses from users query
         controller.submitQuery(proxy + base + 'users/' + user).then(function(response) {
           let apiData = JSON.parse(response);
           userData.display_name = apiData.display_name;
