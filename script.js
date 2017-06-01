@@ -71,14 +71,14 @@ let controller = { // add 'loading' while initial data collection occurs?
   filterUsers() { 
     let filtered = [];
     if (data.currentFilter === 'online') {
-      filtered.push(data.accounts.filter(
+      filtered = (data.accounts.filter(
         function(userObj) {
           return (userObj.streaming === true)
         })
       )
     }
     else if (data.currentFilter === 'offline') {
-    filtered.push(data.accounts.filter(
+    filtered = (data.accounts.filter(
       function(userObj) {
         return (userObj.streaming === false)
       })
@@ -105,7 +105,7 @@ let view = {
   },
   // render function can be called with different arrays for filtering
   render(userArray) {
-      debugger;
+      // debugger;
     let userHTML = _.template(
       // Concatenated for legibility
       '<div class="userBox">' 

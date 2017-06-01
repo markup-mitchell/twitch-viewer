@@ -60,11 +60,11 @@ h1 {
   height: 100px;
 }
 
-/*img {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-}*/
+img {
+  /*border-radius: 50%;*/
+  width: 200px;
+  height: auto;
+}
 .userText {
   width: 25vw;; /* stretch? */
   display: flex;
