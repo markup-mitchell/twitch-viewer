@@ -68,20 +68,27 @@ let controller = { // add 'loading' while initial data collection occurs?
     })
   },
 
-  filterUsers() { // this is truly horrible
-    if (data.currentFilter === 'offline') {
-      return data.accounts.filter(function(user) {
-        return data[user.name] === data.currentFilter;
-      });
+  filterUsers() { 
+    let filtered = [];
+    if (data.currentFilter === 'online') {
+      filtered.push(data.accounts.filter(
+        function(userObj) {
+          return (userObj.streaming === true)
+        })
+      )
     }
-    else if (data.currentFilter === 'online') {
-      return data.accounts.filter(function(user) {
-        return data[user.name] !== 'offline';
+    else if (data.currentFilter === 'offline') {
+    filtered.push(data.accounts.filter(
+      function(userObj) {
+        return (userObj.streaming === false)
       })
-    }
+    )
+  }
     else {
-      return data.accounts;
-    }
+      filtered = data.accounts;
+    };
+    console.log(filtered);
+    return filtered;
   },
 
   applyFilter(element) {
@@ -98,6 +105,7 @@ let view = {
   },
   // render function can be called with different arrays for filtering
   render(userArray) {
+      debugger;
     let userHTML = _.template(
       // Concatenated for legibility
       '<div class="userBox">' 
