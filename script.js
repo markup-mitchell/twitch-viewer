@@ -21,7 +21,7 @@ let controller = { // add 'loading' while initial data collection occurs?
         let userData = {
           name: user,
           display_name: null,
-          logo: 'no-photo.png',
+          logo: null,
           streaming: false,
           game: null,
           streamImage: null, 
@@ -29,8 +29,8 @@ let controller = { // add 'loading' while initial data collection occurs?
         // need to handle null responses from users query
         controller.submitQuery(proxy + base + 'users/' + user).then(function(response) {
           let apiData = JSON.parse(response);
-          userData.display_name = apiData.display_name;
-          userData.logo = apiData.logo;
+          userData.display_name = apiData.display_name || 'User not found';
+          userData.logo = apiData.logo || 'no-photo.png';
         });
         // I should abstract this into a separate refresh function so it can be called independently
         controller.submitQuery(proxy + base + 'streams/' + user).then(function(response) {
