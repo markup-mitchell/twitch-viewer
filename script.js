@@ -25,12 +25,14 @@ let controller = { // add 'loading' while initial data collection occurs?
           streaming: false,
           game: null,
           streamImage: null, 
+          twitchPage: null
         };
         // need to handle null responses from users query
         controller.submitQuery(proxy + base + 'users/' + user).then(function(response) {
           let apiData = JSON.parse(response);
           userData.display_name = apiData.display_name || 'User not found';
           userData.logo = apiData.logo || 'no-photo.png';
+          userData.twitchPage = 'https://www.twitch.tv/' + user    ;
         });
         // I should abstract this into a separate refresh function so it can be called independently
         controller.submitQuery(proxy + base + 'streams/' + user).then(function(response) {
@@ -113,7 +115,7 @@ let view = {
         +'<img class="avatar" src="<%= logo %>" />'
         +'<div class="userText">'
         +'<div class="userName"><%= display_name %></div>'
-        +'<div class="playing"><%= game %></div>'
+        +'<div class="playing"><a href="<%= twitchPage %>" target="_blank"><%= game %></a></div>'
         +'</div><img class="statusIcon" src="<%= streamImage %>" />'
       +'</div>');
     let toAppendString = '';
@@ -130,7 +132,6 @@ let view = {
     }
 
   }
-
 }
 
 controller.init();
