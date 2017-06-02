@@ -44,7 +44,8 @@ let controller = { // add 'loading' while initial data collection occurs?
           else {
             userData.streaming = true;
             userData.game = streamData.stream.game;
-            userData.streamImage = streamData.stream.preview.medium;
+            // userData.streamImage = streamData.stream.preview.medium;
+            userData.streamImage = 'online.png';
           }
           data.accounts.push(userData);
         })

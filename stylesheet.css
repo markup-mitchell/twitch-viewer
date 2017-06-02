@@ -61,8 +61,8 @@ h1 {
 }
 
 img {
-  /*border-radius: 50%;*/
-  width: 200px;
+  border-radius: 50%;
+  width: 70px;
   height: auto;
 }
 .userText {
