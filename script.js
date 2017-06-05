@@ -1,5 +1,5 @@
 let data = {
-  userNameList: ['medrybw', 'lootbndt', 'femfreq', 'freecodecamp','spitchell', 'madeUp' ], // -> controller.getUserData
+  userNameList: [ 'prolikechro', 'medrybw', 'adoptedgaming', 'femfreq', 'freecodecamp','spitchell', 'madeUp' ], // -> controller.getUserData
   accounts: [
     
   ], // <- controller.getUserData
@@ -8,50 +8,50 @@ let data = {
 
 let controller = { // add 'loading' while initial data collection occurs?
   init() {
-    this.createUserObj();
+    let promise = this.createUserObj();
+    view.init();
+    promise.then(view.render(data.accounts));
     // this.getUserData(data.userNameList, 'streams');
     // this.getUserData(data.userNameList, 'users'); // 2nd arg = users/streams/channels
-    view.init();
     // view.render(data.accounts); // need to make this wait until previous call completes
 },
-  createUserObj() { 
-      const proxy = 'https://cors-anywhere.herokuapp.com';
-      const base = '/wind-bow.gomix.me/twitch-api/';
-      data.userNameList.forEach(function(user) {
-        let userData = {
-          name: user,
-          display_name: null,
-          logo: null,
-          streaming: false,
-          game: null,
-          streamImage: null, 
-          twitchPage: null
-        };
-        // need to handle null responses from users query
-        controller.submitQuery(proxy + base + 'users/' + user).then(function(response) {
-          let apiData = JSON.parse(response);
-          userData.display_name = apiData.display_name || 'User not found';
-          userData.logo = apiData.logo || 'no-photo.png';
-          userData.twitchPage = 'https://www.twitch.tv/' + user    ;
-        });
-        // I should abstract this into a separate refresh function so it can be called independently
-        controller.submitQuery(proxy + base + 'streams/' + user).then(function(response) {
-          let streamData = JSON.parse(response);
-          console.log(streamData.stream);
-          if (!streamData.stream) {
-            userData.streaming = false;
-            userData.game = 'Not currently streaming';
-            userData.streamImage = 'offline.png';
-          }
-          else {
-            userData.streaming = true;
-            userData.game = streamData.stream.game;
-            // userData.streamImage = streamData.stream.preview.medium;
-            userData.streamImage = 'online.png';
-          }
-          data.accounts.push(userData);
-        })
-    })
+createUserObj() { 
+  const proxy = 'https://cors-anywhere.herokuapp.com';
+  const base = '/wind-bow.gomix.me/twitch-api/';
+  data.userNameList.forEach(function(user) {
+    let userData = {
+      name: user,
+      display_name: null,
+      logo: null,
+      streaming: false,
+      game: null,
+      streamImage: null, 
+      twitchPage: null
+    };
+    controller.submitQuery(proxy + base + 'users/' + user).then(function(response) {
+      let apiData = JSON.parse(response);
+      userData.display_name = apiData.display_name || 'User not found';
+      userData.logo = apiData.logo || 'no-photo.png';
+      userData.twitchPage = 'https://www.twitch.tv/' + user    ;
+    });
+    // I should abstract this into a separate refresh function so it can be called independently
+    controller.submitQuery(proxy + base + 'streams/' + user).then(function(response) {
+      let streamData = JSON.parse(response);
+      console.log(streamData.stream);
+      if (!streamData.stream) {
+        userData.streaming = false;
+        userData.game = 'Not currently streaming';
+        userData.streamImage = 'offline.png';
+    }
+      else {
+        userData.streaming = true;
+        userData.game = streamData.stream.game;
+        // userData.streamImage = streamData.stream.preview.medium;
+        userData.streamImage = 'online.png';
+      }
+    data.accounts.push(userData);
+  })
+  })
 },
 
   submitQuery(apiQuery) { // for all api calls. adapt apiQuery with an intermediary function 
@@ -104,7 +104,7 @@ let controller = { // add 'loading' while initial data collection occurs?
 let view = {
   init() {
     this.display = document.getElementById('container');
-    this.render(data.accounts);
+    // this.render(data.accounts);
   },
   // render function can be called with different arrays for filtering
   render(userArray) {
